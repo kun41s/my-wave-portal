@@ -11,3 +11,6 @@ GAS_REPORT=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
+
+# Contract Address
+0xF84448cA3F29f92C98f07F022dE2fB5D9841B2D8
