@@ -46,9 +46,8 @@ function App() {
 
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]); //setCurrentAccount to first account from wallet
-
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
   }
 
@@ -65,8 +64,20 @@ function App() {
         const signer = provider.getSigner();
         const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
 
+        //getTotalWaves() function from contract  
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrived total wave count...", count.toNumber());
+
+        //write to smart contract
+        //Execute the actual wave from your smart contract
+        const waveTxn = await wavePortalContract.wave();
+        console.log("Mining...",waveTxn.hash);
+
+        await waveTxn.wait();
+        console.log("Mined -- ",waveTxn.hash);
+
+        count = await wavePortalContract.getTotalWaves();
+        console.log("Retrieved total wave count...", count.toNumber());
       } else {
         console.log("Ethereum object doesn't exist!");
       }
